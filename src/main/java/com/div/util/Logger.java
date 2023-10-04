@@ -1,4 +1,4 @@
-package org.io.util;
+package com.div.util;
 
 public class Logger {
     public static void log(String message) {

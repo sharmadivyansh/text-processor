@@ -1,4 +1,4 @@
-package org.io.data;
+package com.div.data;
 
 public enum Command {
     SORT,

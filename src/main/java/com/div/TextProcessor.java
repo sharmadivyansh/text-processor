@@ -1,21 +1,19 @@
-package org.io;
+package com.div;
 
-import org.io.data.Command;
-import org.io.util.ArgUtil;
-import org.io.util.Logger;
-import org.io.util.FileUtil;
+import com.div.data.Command;
+import com.div.util.ArgUtil;
+import com.div.util.FileUtil;
+import com.div.util.Logger;
 
 import java.util.Map;
 
 public class TextProcessor {
     public static void main(String[] args) {
 
-//        sort -a/d filename
         Map<String,?> argMap = ArgUtil.parseArgs(args);
         Command command = (Command)argMap.get("command");
         char flag = (char)argMap.get("flag");
         String filename = (String)argMap.get("filename");
-
         switch (command){
             case SORT:
                 FileUtil.printSorted(filename,flag);
