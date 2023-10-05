@@ -1,16 +1,40 @@
 package com.div;
 
 import com.div.data.Command;
+import com.div.exceptions.InvalidFileFormat;
+import com.div.exceptions.InvalidFlag;
 import com.div.util.ArgUtil;
 import com.div.util.FileUtil;
 import com.div.util.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class TextProcessor {
     public static void main(String[] args) {
+        Map<String, ?> argMap = new HashMap<>();
+        try {
+            argMap = ArgUtil.parseArgs(args);
+        }
+        catch (IllegalArgumentException e){
+            System.out.println("Invalid command");
+        }
+        catch(InvalidFlag e){
+            System.out.println("Invalid flag");
+        }
+        catch(InvalidFileFormat e){
+            System.out.println("Invalid file extension. Only .txt and .csv files supported");
+        }
+        finally{
+            System.out.println("Usage:");
+            System.out.println("sort filename -a/ -d");
+            System.out.println("remove filename");
+            System.out.println("search filename word");
+            System.out.println("replace filename existing-text new-text");
+            System.out.println("merge filename1 filename2 filename");
+            System.exit(1);
+        }
 
-        Map<String,?> argMap = ArgUtil.parseArgs(args);
         Command command = (Command)argMap.get("command");
         char flag = (char)argMap.get("flag");
         String filename = (String)argMap.get("filename");

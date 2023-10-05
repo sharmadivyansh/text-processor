@@ -1,13 +1,15 @@
 package com.div.util;
 
 import com.div.data.Command;
+import com.div.exceptions.InvalidFileFormat;
+import com.div.exceptions.InvalidFlag;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ArgUtil {
 
-    public static Map<String,?> parseArgs(String[] args) {
+    public static Map<String,?> parseArgs(String[] args) throws InvalidFlag, InvalidFileFormat {
 
         if(args.length<2) {
             Logger.log("Insufficient Arguments");
@@ -16,7 +18,7 @@ public class ArgUtil {
 
         char flag = 'a';
         String filename = args[1];
-        Command command = Command.valueOf(args[0].toUpperCase());;
+        Command command= Command.valueOf(args[0].toUpperCase());
         if(args.length == 2){
            filename = getFileName(args);
         }
@@ -26,7 +28,7 @@ public class ArgUtil {
             }
             else{
                 Logger.log("Incorrect flag");
-                throw new RuntimeException();
+                throw new InvalidFlag();
             }
             filename = getFileName(args);
         }
@@ -47,12 +49,12 @@ public class ArgUtil {
         return argsMap;
     }
 
-    private static String getFileName(String[] args){
+    private static String getFileName(String[] args) throws InvalidFileFormat {
         if(args[1].endsWith(".txt") || args[1].endsWith(".csv")){
             return args[1];
         }
         else{
-            throw new RuntimeException("File Type not supported");
+            throw new InvalidFileFormat("File Type not supported");
         }
     }
 

@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 public class FileUtil {
 
     public static Stream<String> sortFile(String filename, char flag) {
-
         Path path = Paths.get(filename);
         if(Files.notExists(path))
             throw new RuntimeException("File does not exist.");
@@ -23,11 +22,9 @@ public class FileUtil {
         catch(IOException exception){
             Logger.log(exception.getMessage());
         }
-
         Comparator<String> comparator = String::compareTo;
         if(flag == 'd')
             comparator = (s1,s2) -> s1.compareTo(s2) * -1;
-
         return linesFromFile.stream()
                 .sorted(comparator);
     }
@@ -61,7 +58,6 @@ public class FileUtil {
 
     public static void searchWord(String filename, String word) {
         List<String>linesFromFile = readLinesFromFile(filename);
-
         IntStream.range(0,linesFromFile.size())
                 .filter(i-> linesFromFile.get(i).contains(word))
                 .boxed()
@@ -71,7 +67,6 @@ public class FileUtil {
 
 
     public static void replaceWord(String filename, String wordToReplace, String replaceWith) {
-
         List<String> linesFromFile = readLinesFromFile(filename);
         for(int i=0;i<linesFromFile.size();i++){
             if(linesFromFile.get(i).contains(wordToReplace)){
@@ -88,7 +83,6 @@ public class FileUtil {
 
     private static void saveListToFile(List<String> stringList, String filename) {
         Path path = Paths.get(filename);
-
         List<byte[]> byteList = new ArrayList<>();
         stringList.stream()
                 .map(line -> byteList.add(line.concat("\n").getBytes()))
@@ -102,7 +96,6 @@ public class FileUtil {
         catch (IOException e) {
             Logger.log(e.getMessage());
         }
-
     }
 
     /*
@@ -123,7 +116,6 @@ public class FileUtil {
     }
 
     public static boolean mergeFiles(String firstFilename, String secondFilename, String mergeFilename) {
-
         List<String> fileOneLines = readLinesFromFile(firstFilename);
         List<String> fileTwoLines = readLinesFromFile(secondFilename);
         fileOneLines.addAll(fileTwoLines);
