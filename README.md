@@ -15,3 +15,5 @@ A command-line tool for manipulating text files, such as sorting lines of text a
 - textprocessor sort filename -a/ -d
 - textprocessor remove filename
 - textprocessor search filename word
+- textprocessor replace filename existing-text new-text
+- textprocessor merge filename1 filename2 filename

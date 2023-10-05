@@ -18,12 +18,7 @@ public class ArgUtil {
         String filename = args[1];
         Command command = Command.valueOf(args[0].toUpperCase());;
         if(args.length == 2){
-            if(args[1].endsWith(".txt") || args[1].endsWith(".csv")){
-                filename = args[1];
-            }
-            else{
-                throw new RuntimeException("File Type not supported");
-            }
+           filename = getFileName(args);
         }
         if(args.length==3 && !(command.equals(Command.SEARCH))){
             if(args[2].startsWith("-")){
@@ -33,20 +28,32 @@ public class ArgUtil {
                 Logger.log("Incorrect flag");
                 throw new RuntimeException();
             }
-            if(args[1].endsWith(".txt") || args[1].endsWith(".csv")){
-                filename = args[1];
-            }
-            else{
-                throw new RuntimeException("Filetype not supported");
-            }
-
+            filename = getFileName(args);
         }
+
+        if(command.equals(Command.REPLACE)){
+            if(args.length != 4)
+                throw new RuntimeException("Insufficient Arguments");
+            else{
+                filename = getFileName(args);
+            }
+        }
+
 
         Map<String,Object> argsMap = new HashMap<>();
         argsMap.put("command",command);
         argsMap.put("flag",flag);
         argsMap.put("filename",filename);
         return argsMap;
-
     }
+
+    private static String getFileName(String[] args){
+        if(args[1].endsWith(".txt") || args[1].endsWith(".csv")){
+            return args[1];
+        }
+        else{
+            throw new RuntimeException("File Type not supported");
+        }
+    }
+
 }

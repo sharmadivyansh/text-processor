@@ -60,7 +60,7 @@ public class FileUtil {
     }
 
     public static void searchWord(String filename, String word) {
-        List<String>linesFromFile = readLines(filename);
+        List<String>linesFromFile = readLinesFromFile(filename);
 
         IntStream.range(0,linesFromFile.size())
                 .filter(i-> linesFromFile.get(i).contains(word))
@@ -68,7 +68,47 @@ public class FileUtil {
                 .forEach(System.out::println);
     }
 
-    public static List<String> readLines(String filename){
+
+
+    public static void replaceWord(String filename, String wordToReplace, String replaceWith) {
+
+        List<String> linesFromFile = readLinesFromFile(filename);
+        for(int i=0;i<linesFromFile.size();i++){
+            if(linesFromFile.get(i).contains(wordToReplace)){
+                String newLine = linesFromFile.get(i).replaceAll(wordToReplace,replaceWith);
+                linesFromFile.set(i,newLine);
+            }
+        }
+        saveListToFile(linesFromFile,filename);
+    }
+
+    /*
+    * Utility for saving List to file
+    * */
+
+    private static void saveListToFile(List<String> stringList, String filename) {
+        Path path = Paths.get(filename);
+
+        List<byte[]> byteList = new ArrayList<>();
+        stringList.stream()
+                .map(line -> byteList.add(line.concat("\n").getBytes()))
+                .forEach(System.out::println);
+        try {
+            Files.write(path, "".getBytes());
+            for (byte[] b : byteList)
+                Files.write(path, b, StandardOpenOption.APPEND);
+//        Files.write(path,);
+        }
+        catch (IOException e) {
+            Logger.log(e.getMessage());
+        }
+
+    }
+
+    /*
+    * Utility Method which takes in filename and returns all lines from the file in a List
+    * */
+    private static List<String> readLinesFromFile(String filename){
         Path path = Paths.get(filename);
         if(Files.notExists(path))
             throw new RuntimeException("File does not exist.");
@@ -79,9 +119,17 @@ public class FileUtil {
         catch(IOException e){
             Logger.log(e.getMessage());
         }
-         return linesFromFile;
+        return linesFromFile;
     }
 
+    public static boolean mergeFiles(String firstFilename, String secondFilename, String mergeFilename) {
+
+        List<String> fileOneLines = readLinesFromFile(firstFilename);
+        List<String> fileTwoLines = readLinesFromFile(secondFilename);
+        fileOneLines.addAll(fileTwoLines);
+        FileUtil.saveListToFile(fileOneLines,mergeFilename);
+        return true;
+    }
+
+
 }
-
-

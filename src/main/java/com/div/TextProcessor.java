@@ -26,8 +26,26 @@ public class TextProcessor {
                 FileUtil.searchWord(filename,word);
                 break;
             case REPLACE:
+                String wordToReplace = args[2];
+                String replaceWith = args[3];
+                FileUtil.replaceWord(filename,wordToReplace,replaceWith);
                 break;
             case MERGE:
+                System.out.println("Merge");
+                String firstFilename = filename;
+                String secondFilename = null;
+                String mergeFilename = null;
+                if(args[2].endsWith(".txt") || args[2].endsWith(".csv")
+                && args[3].endsWith(".txt") || args[3].endsWith(".csv")){
+                    secondFilename = args[2];
+                    mergeFilename = args[3];
+                }
+                else
+                    new RuntimeException("File type not supported");
+                if(FileUtil.mergeFiles(firstFilename,secondFilename,mergeFilename))
+                    System.out.println("File merged successfully");
+                else
+                    Logger.log("Error! Could not merge files");
                 break;
             default:
                 Logger.log("Incorrect command");
