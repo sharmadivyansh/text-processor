@@ -61,7 +61,7 @@ public class FileUtil {
         IntStream.range(0,linesFromFile.size())
                 .filter(i-> linesFromFile.get(i).contains(word))
                 .boxed()
-                .forEach(System.out::println);
+                .forEach(i->System.out.println(i+1));
     }
 
 
