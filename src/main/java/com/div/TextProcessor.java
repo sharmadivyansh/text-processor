@@ -26,13 +26,7 @@ public class TextProcessor {
             System.out.println("Invalid file extension. Only .txt and .csv files supported");
         }
         finally{
-            System.out.println("Usage:");
-            System.out.println("sort filename -a/ -d");
-            System.out.println("remove filename");
-            System.out.println("search filename word");
-            System.out.println("replace filename existing-text new-text");
-            System.out.println("merge filename1 filename2 filename");
-            System.exit(1);
+            System.out.println(ArgUtil.showUsage());
         }
 
         Command command = (Command)argMap.get("command");
@@ -74,7 +68,6 @@ public class TextProcessor {
             default:
                 Logger.log("Incorrect command");
         }
-
 
     }
 }

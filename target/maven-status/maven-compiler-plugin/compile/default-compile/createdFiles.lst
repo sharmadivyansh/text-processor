@@ -5,3 +5,5 @@ com\div\util\Logger.class
 com\div\data\Args.class
 com\div\util\FileUtil.class
 com\div\TextProcessor.class
+com\div\util\CommandUtil$1.class
+com\div\util\CommandUtil.class

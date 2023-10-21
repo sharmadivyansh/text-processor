@@ -2,5 +2,8 @@ D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\TextProcesso
 D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\util\ArgUtil.java
 D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\util\FileUtil.java
 D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\util\Logger.java
+D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\exceptions\InvalidFlag.java
+D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\util\CommandUtil.java
 D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\data\Args.java
 D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\data\Command.java
+D:\Personal\IntelliJ-Workspace\text-processor\src\main\java\com\div\exceptions\InvalidFileFormat.java

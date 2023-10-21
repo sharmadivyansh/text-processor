@@ -8,17 +8,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ArgUtil {
-
     public static Map<String,?> parseArgs(String[] args) throws InvalidFlag, InvalidFileFormat {
 
-        if(args.length<2) {
+        if(args==null || args.length<2){
             Logger.log("Insufficient Arguments");
-            throw new RuntimeException();
+            throw new RuntimeException("Insufficient Arguments");
         }
+//        if(args[0].equals("-h") || args[0].equals("--help")){
+//            System.out.println(showUsage());
+//            System.exit(0);
+//        }
 
+        Command command= Command.valueOf(args[0].toUpperCase());
+//        getArgData(command,args);
         char flag = 'a';
         String filename = args[1];
-        Command command= Command.valueOf(args[0].toUpperCase());
         if(args.length == 2){
            filename = getFileName(args);
         }
@@ -40,8 +44,6 @@ public class ArgUtil {
                 filename = getFileName(args);
             }
         }
-
-
         Map<String,Object> argsMap = new HashMap<>();
         argsMap.put("command",command);
         argsMap.put("flag",flag);
@@ -56,6 +58,17 @@ public class ArgUtil {
         else{
             throw new InvalidFileFormat("File Type not supported");
         }
+    }
+
+    public static String showUsage(){
+        return "Usage:" +
+                "\ntextprocessor sort filename [options]" +
+                "\n-a: sort file ascendingly" +
+                "\n-d: sort file descendingly" +
+                "\ntextprocessor remove filename" +
+                "\ntextprocessor search filename word" +
+                "\ntextprocessor replace filename existing-text new-text" +
+                "\ntextprocessor merge filename1 filename2 filename" ;
     }
 
 }
